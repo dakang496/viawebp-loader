@@ -1,0 +1,24 @@
+{
+  "name": "viawebp-loader",
+  "version": "0.0.4",
+  "description": "WebP image loader & converter loader for Webpack",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dakang496/viawebp-loader.git"
+  },
+  "author": {
+    "name": "dakang",
+    "email": "1208303205@qq.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dakang496/viawebp-loader/issues"
+  },
+  "homepage": "https://github.com/dakang496/viawebp-loader#readme",
+  "dependencies": {
+    "imagemin": "^5.3.1",
+    "imagemin-webp": "^4.0.0",
+    "loader-utils": "^1.1.0"
+  }
+}
