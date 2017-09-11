@@ -28,6 +28,7 @@
          return supported;
        }
      });
+     return 0;
    }
  }
 

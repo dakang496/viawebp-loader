@@ -19,22 +19,33 @@ module.exports = function (content) {
     var deleteCache = `delete require.cache[require.resolve('${this.resource}')]; `;
     if (detectOptions.auto) {
       var scriptPath = detectOptions.script || detectScriptPath;
-      return deleteCache + defaultExportText + `
+      return defaultExportText + `
         var detect= require('${scriptPath}');
         var webpPath=${webpExportValue}
         var imageInfo=module.exports.default;
-        if(detect.isSupport()){
+        var support=detect.isSupport();
+        if(support){
           imageInfo=webpPath;
+        }else if(support===0){
+          ${deleteCache} 
         }
         module.exports=imageInfo;
       `;
     } else {
-      var variable = variable || '__webp_support__'
+      var serverSupportText = detectOptions.serverVariable ? detectOptions.serverVariable : 'global.__webp_support__';
+      var browserSupportText = detectOptions.clientVariable ? detectOptions.clientVariable : 'window.__webp_support__';
+
       return (detectOptions.cache ? deleteCache : '') + defaultExportText + `
         var webpPath=${webpExportValue}
         var imageInfo=module.exports.default;
-        if(window.${variable}){
-          imageInfo=webpPath;
+        var support=false;
+        if(typeof window === 'undefined'){//node
+          support=${serverSupportText}
+        }else{//window
+          support=${browserSupportText}
+        }
+        if(support){
+           imageInfo=webpPath;
         }
         module.exports=imageInfo;
       `;
