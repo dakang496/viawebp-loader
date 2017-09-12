@@ -33,7 +33,7 @@ module.exports = function (content) {
       `;
     } else {
       var serverSupportText = detectOptions.serverVariable ? detectOptions.serverVariable : 'global.__webp_support__';
-      var browserSupportText = detectOptions.clientVariable ? detectOptions.clientVariable : 'window.__webp_support__';
+      var clientSupportText = detectOptions.clientVariable ? detectOptions.clientVariable : 'window.__webp_support__';
 
       return (detectOptions.cache ? deleteCache : '') + defaultExportText + `
         var webpPath=${webpExportValue}
@@ -42,7 +42,7 @@ module.exports = function (content) {
         if(typeof window === 'undefined'){//node
           support=${serverSupportText}
         }else{//window
-          support=${browserSupportText}
+          support=${clientSupportText}
         }
         if(support){
            imageInfo=webpPath;
